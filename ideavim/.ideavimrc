@@ -1,0 +1,29 @@
+set clipboard+=unnamed
+set clipboard+=ideaput
+set hls
+set nonu
+imap jj <ESC>
+
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" maps :W to :w
+cnoreabbrev <expr> Q ((getcmdtype() is# ':' && getcmdline() is# 'Q')?('q'):('Q'))
+cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+cnoreabbrev <expr> WQ ((getcmdtype() is# ':' && getcmdline() is# 'WQ')?('wq'):('WQ'))
+cnoreabbrev <expr> WQA ((getcmdtype() is# ':' && getcmdline() is# 'WQA')?('wqa'):('WQA'))
+cnoreabbrev <expr> Wq ((getcmdtype() is# ':' && getcmdline() is# 'Wq')?('wq'):('Wq'))
+cnoreabbrev <expr> WQa ((getcmdtype() is# ':' && getcmdline() is# 'WQa')?('wqa'):('WQa'))
+cnoreabbrev <expr> Wqa ((getcmdtype() is# ':' && getcmdline() is# 'Wqa')?('wqa'):('Wqa'))
+cnoreabbrev <expr> WqA ((getcmdtype() is# ':' && getcmdline() is# 'WqA')?('wqa'):('WqA'))
+
+map tg gT
+map H hhhh
+map J jjjj
+map K kkkk
+map L llll
+
+set visualbell
+set noerrorbells
+
+set NERDTree
