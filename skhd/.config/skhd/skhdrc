@@ -1,0 +1,126 @@
+# ===== TILE NAVIGATION =====
+
+# Navigation
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+# Moving windows
+shift + alt - h : yabai -m window --swap west
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - l : yabai -m window --swap east
+
+# Move window and split
+# shift + lctrl - h : yabai -m window --warp west
+# shift + lctrl - j : yabai -m window --warp south
+# shift + lctrl - k : yabai -m window --warp north
+# shift + lctrl - l : yabai -m window --warp east
+
+# Equalize size of windows
+# lctrl + alt - e : yabai -m space --balance
+
+# Rotate windows clockwise
+# shift + alt - r : yabai -m space --rotate 270
+
+# Rotate on X and Y Axis
+# shift + alt - v : yabai -m space --mirror x-axis
+# shift + alt - c : yabai -m space --mirror y-axis
+
+
+# ===== RESIZE WINDOWS =====
+
+# Resize windows
+# lctrl + alt - h : yabai -m window --resize left:-50:0; yabai -m window --resize right:-50:0
+# lctrl + alt - j : yabai -m window --resize bottom:0:50; yabai -m window --resize top:0:50
+# lctrl + alt - k : yabai -m window --resize top:0:-50; yabai -m window --resize bottom:0:-50
+# lctrl + alt - l : yabai -m window --resize right:50:0; yabai -m window --resize left:50:0
+
+# 0x1B: -
+# 0x18: =
+alt - 0x1B : yabai -m window --resize left:-50:0; yabai -m window --resize right:-50:0
+alt - 0x18 : yabai -m window --resize right:50:0; yabai -m window --resize left:50:0
+shift + alt - 0x1B : yabai -m window --resize bottom:0:50; yabai -m window --resize top:0:50
+shift + alt - 0x18 : yabai -m window --resize top:0:-50; yabai -m window --resize bottom:0:-50
+
+# Make window native fullscreen
+alt - f         : yabai -m window --toggle zoom-fullscreen
+shift + alt - f : yabai -m window --toggle native-fullscreen
+
+
+# ===== SPACE NAVIGATION =====
+
+# Move focus container to workspace
+# shift + alt - n : yabai -m window --space prev
+# shift + alt - m : yabai -m window --space next
+# shift + alt - 1 : yabai -m window --space 1
+# shift + alt - 2 : yabai -m window --space 2
+# shift + alt - 3 : yabai -m window --space 3
+# shift + alt - 4 : yabai -m window --space 4
+
+
+# ===== DISPLAY NAVIGATION =====
+
+# focus different display
+# alt - y : yabai -m display --focus west
+# alt - u : yabai -m display --focus south
+# alt - i : yabai -m display --focus north
+# alt - o : yabai -m display --focus east
+
+# move window to different display
+# shift + alt - y : yabai -m window --display west --focus
+# shift + alt - u : yabai -m window --display south --focus
+# shift + alt - i : yabai -m window --display north --focus
+# shift + alt - o : yabai -m window --display east --focus
+
+
+# ===== FLOAT =====
+
+# Float / Unfloat window
+shift + alt - space : \
+    yabai -m window --toggle float; \
+    yabai -m window --toggle border
+
+
+
+# float / unfloat window and center on screen
+ alt - space : yabai -m window --toggle float;\
+           yabai -m window --grid 4:4:1:1:2:2
+ 
+alt - t : yabai -m window --toggle float;\
+          yabai -m window --grid 20:20:1:1:18:18
+
+# make floating window fill left-half of screen
+# lctrl + alt - left   : yabai -m window --grid 1:2:0:0:1:1
+
+# make floating window fill right-half of screen
+# lctrl + alt - right  : yabai -m window --grid 1:2:1:0:1:1
+
+
+# ===== DESIGN & LAYOUT =====
+
+# Enable / Disable gaps in current workspace
+# lctrl + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+
+# change layout of desktop
+# lctrl + alt - z : yabai -m space --layout bsp
+# lctrl + alt - x : yabai -m space --layout float
+
+
+# ===== OTHER =====
+
+# Set insertion point for focused container
+# shift + lctrl + alt - h : yabai -m window --insert west
+# shift + lctrl + alt - j : yabai -m window --insert south
+# shift + lctrl + alt - k : yabai -m window --insert north
+# shift + lctrl + alt - l : yabai -m window --insert east
+
+# Restart Yabai
+# shift + lctrl + alt - r : yabai --restart-service
+
+# Start/stop yabai
+# shift + lctrl + alt - s : yabai --start-service
+
+# Start/stop yabai
+# shift + lctrl + alt - q : yabai --stop-service

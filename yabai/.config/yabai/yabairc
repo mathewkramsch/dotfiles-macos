@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+set -x
+
+
+# ====== Variables =============================
+
+declare -A color
+
+color["focused"]="0xE0808080"
+color["normal"]="0x00010101"
+color["preselect"]="0xE02d74da"
+
+# ===== Tiling setting =========================
+
+yabai -m config layout                      bsp
+# can also be set to main:42:0
+yabai -m config external_bar all:36:0
+yabai -m config top_padding                 10
+yabai -m config bottom_padding              10
+yabai -m config left_padding                10
+yabai -m config right_padding               10
+yabai -m config window_gap                  10
+
+yabai -m config mouse_follows_focus         off
+yabai -m config focus_follows_mouse         on
+
+yabai -m config window_topmost              off
+yabai -m config window_opacity              off
+yabai -m config window_shadow               off
+
+# yabai -m config window_border               on
+# yabai -m config window_border_width         2
+# yabai -m config active_window_border_color  "${color["focused"]}"
+# yabai -m config normal_window_border_color  "${color["normal"]}"
+yabai -m config insert_feedback_color       "${color["preselect"]}"
+
+yabai -m config active_window_opacity       1.0
+yabai -m config normal_window_opacity       0.90
+yabai -m config split_ratio                 0.50
+
+yabai -m config auto_balance                off
+yabai -m config window_placement            second_child
+
+# ===== Mouse Settings =========================
+
+yabai -m config mouse_modifier              fn
+yabai -m config mouse_action1               move
+yabai -m config mouse_action2               resize
+yabai -m mouse_drop_action                  swap
+
+# ===== Rules ==================================
+
+#yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+yabai -m rule --add label="Finder" app="^Finder$" manage=off
+yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add label="macfeh" app="^macfeh$" manage=off
+yabai -m rule --add label="System Settings" app="^System Settings$" title=".*" manage=off
+yabai -m rule --add label="KeePassXC" app="^KeePassXC$" manage=off
+yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
+yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
+yabai -m rule --add label="mpv" app="^mpv$" manage=off
+yabai -m rule --add label="Software Update" title="Software Update" manage=off
+yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+
+# borders active_color=0xb4ffffff inactive_color=00ffffff width=4
+
+set +x
+printf "yabai: configuration loaded...\\n"
+
