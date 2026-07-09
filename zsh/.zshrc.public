@@ -1,0 +1,124 @@
+# .zshrc.public - my personal aliases (not company specific)
+
+# aliases
+alias r='. ranger'
+alias rm='rm -iv'
+alias p='clear && cd ~/Desktop/Personal\ Notes'
+alias vn='clear && cd ~/Desktop/Veeva\ Notes && . ranger'
+alias w='clear && cd ~/Desktop/Workspace'
+alias n='cd ~/Desktop/Notes'
+alias v='clear && cd ~/Desktop/Workspace/vault-gradle && git branch'
+alias vd='clear && cd ~/Desktop/Workspace/vault-docker && git branch'
+alias t='cd ~/Desktop/Veeva\ Notes && vim todo.n'
+alias tabs='cd ~/Desktop/Personal\ Notes/tabs'
+
+alias tetris='tetris -a -l 1'
+alias pacman='myman'
+alias snake='nsnake'
+alias chess='./go/bin/gambit'
+
+alias s='grep -iR'
+alias grep='grep --color'
+alias time='clock-rs -c green -t --fmt "%A, %B %d"'
+alias timer='clock-rs -c green -t timer -M'
+alias ..='cd ..'
+alias s='. ~/.zshrc'
+
+alias cf='caffeinate -ds'
+alias yabai-restart='yabai --restart-service && sketchybar --reload'
+
+# git shortcut aliases
+alias b='git branch'
+alias gs='git status'
+alias gd='git diff'
+alias gjs='git jstatus'
+alias gc='git checkout'
+alias gcp='git cherry-pick'
+alias gbd='git branch -D'
+alias gcm='git commit -m'
+alias gl='git log --pretty=format:"%C(yellow)%h%Creset - %C(green)%an%Creset, %ar : %s"'
+alias glg='git log --graph --abbrev-commit --stat'
+
+# utility functions
+function u() {
+    if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+        echo "⚠️ Not a git repo, changing to Personal Notes"
+        cd "/Users/MathewKramsch/Desktop/Personal Notes" || return 1
+    fi
+
+    gs
+
+    echo "⬇️ Pulling..."
+    if ! git pull; then
+        echo "❌ Pull failed, aborting"
+        return 1
+    fi
+
+    echo "📤 Pushing..."
+    if gac 'update' && gp; then
+        echo "✅ Updated"
+    fi
+}
+
+function pcp () {
+	cat $1 | pbcopy
+}
+
+function fcp() {
+	cat $1 | pbcopy
+}
+
+function gac() {
+	if [ $# -eq 0 ]; then
+		git add . && git commit
+	else
+		git add . && git commit -m $1
+	fi
+}
+
+function gp() {
+	if [ $# -eq 0 ]; then
+		git push
+	else
+		git push --set-upstream origin $1
+	fi
+}
+
+function diff {
+	if [[ $1 == "s" ]]
+	then
+		export DELTA_FEATURES=side-by-side
+		git diff
+	elif [[ $1 == "x" ]]
+	then
+		git -c pager.diff='less -R' diff
+	else
+		export DELTA_FEATURES=
+		git diff
+	fi
+}
+
+
+# for gruvbox colors
+export PATH="/opt/homebrew/bin:$PATH"
+source "$HOME/.vim/plugged/gruvbox/gruvbox_256palette.sh"
+export TERM="xterm-256color"
+
+# prompt stuff
+eval "$(starship init zsh)"
+
+# Check if Git repo
+function prompt_git {
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    echo '»' 
+  else 
+    echo '›' 
+  fi
+}
+
+# Load the prompt
+prompt='%{$fg[green]%}$(prompt_git) %{$fg[cyan]%}%~%{$reset_color%} '
+
+# set default editor
+export VISUAL=vim
+export EDITOR=vim
