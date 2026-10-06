@@ -9,7 +9,8 @@ alias w='clear && cd ~/Desktop/Workspace'
 alias n='cd ~/Desktop/Notes'
 alias v='clear && cd ~/Desktop/Workspace/vault-gradle && git branch'
 alias vd='clear && cd ~/Desktop/Workspace/vault-docker && git branch'
-alias t='cd ~/Desktop/Veeva\ Notes && vim todo.n'
+alias vgd='clear && cd ~/Desktop/Workspace/vault-gradle-deploy && git branch'
+alias t='cd ~/Desktop/Veeva\ Notes && vim todo.md'
 alias tabs='cd ~/Desktop/Personal\ Notes/tabs'
 
 alias tetris='tetris -a -l 1'
@@ -26,6 +27,8 @@ alias s='. ~/.zshrc'
 
 alias cf='caffeinate -ds'
 alias yabai-restart='yabai --restart-service && sketchybar --reload'
+alias search='grep -iR'
+alias md='glow -tns ~/.config/glow/styles/notes.json -w 150'
 
 # git shortcut aliases
 alias b='git branch'
