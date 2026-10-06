@@ -130,7 +130,7 @@ set foldtext=getline(v:foldstart)
 set fcs=fold:\ ,vert:\|
 
 " syntax highlighting for notes
-autocmd BufWinEnter *.n colorscheme notes
+autocmd BufWinEnter *.n,*.md colorscheme notes
 autocmd BufWinEnter *.n set nonumber
 autocmd BufWinEnter *.n set foldcolumn=2
 autocmd BufWinEnter *.n set autoindent

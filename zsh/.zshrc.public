@@ -10,7 +10,7 @@ alias n='cd ~/Desktop/Notes'
 alias v='clear && cd ~/Desktop/Workspace/vault-gradle && git branch'
 alias vd='clear && cd ~/Desktop/Workspace/vault-docker && git branch'
 alias vgd='clear && cd ~/Desktop/Workspace/vault-gradle-deploy && git branch'
-alias t='cd ~/Desktop/Veeva\ Notes && vim todo.md'
+alias t='cd ~/Desktop/Veeva\ Notes && md todo.md'
 alias tabs='cd ~/Desktop/Personal\ Notes/tabs'
 
 alias tetris='tetris -a -l 1'
@@ -101,6 +101,9 @@ function diff {
 	fi
 }
 
+
+# XDG Base Directory
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # for gruvbox colors
 export PATH="/opt/homebrew/bin:$PATH"
