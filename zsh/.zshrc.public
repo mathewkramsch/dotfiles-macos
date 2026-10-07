@@ -10,7 +10,7 @@ alias n='cd ~/Desktop/Notes'
 alias v='clear && cd ~/Desktop/Workspace/vault-gradle && git branch'
 alias vd='clear && cd ~/Desktop/Workspace/vault-docker && git branch'
 alias vgd='clear && cd ~/Desktop/Workspace/vault-gradle-deploy && git branch'
-alias t='cd ~/Desktop/Veeva\ Notes && md todo.md'
+alias t='cd ~/Desktop/Veeva\ Notes && nvim todo.md'
 alias tabs='cd ~/Desktop/Personal\ Notes/tabs'
 
 alias tetris='tetris -a -l 1'
@@ -126,5 +126,5 @@ function prompt_git {
 prompt='%{$fg[green]%}$(prompt_git) %{$fg[cyan]%}%~%{$reset_color%} '
 
 # set default editor
-export VISUAL=vim
-export EDITOR=vim
+export VISUAL=nvim
+export EDITOR=nvim
