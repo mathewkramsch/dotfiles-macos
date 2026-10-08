@@ -28,7 +28,7 @@ if has('nvim')
     highlight link RenderMarkdownH4 markdownH4
     highlight link RenderMarkdownH5 markdownH5
     highlight link RenderMarkdownH6 markdownH6
-    highlight link RenderMarkdownCode markdownCode
+    highlight link RenderMarkdownCode markdownCodeBlock
     highlight link RenderMarkdownCodeInline markdownCode
     highlight link RenderMarkdownBullet markdownListMarker
     highlight link RenderMarkdownUnchecked markdownListMarker
