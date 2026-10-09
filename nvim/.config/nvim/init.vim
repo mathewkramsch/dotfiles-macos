@@ -20,7 +20,7 @@ if has('nvim')
   function! s:ApplyVimParity() abort
     highlight NonText guifg=#000000
     highlight EndOfBuffer guifg=#000000
-    highlight WinSeparator guibg=#111111 guifg=#111111
+    highlight WinSeparator guifg=#111111 guibg=NONE
 
     highlight link RenderMarkdownH1 markdownH1
     highlight link RenderMarkdownH2 markdownH2
@@ -56,9 +56,9 @@ if has('nvim')
 
   augroup nvim_vim_parity
     autocmd!
-    " Plain BufWinEnter, not ColorScheme: .vimrc's BufWinEnter autocmd sets
-    " `colorscheme notes` for *.n/*.md, and non-nested autocmds don't chain,
-    " so a ColorScheme hook would never fire for those buffers.
+    " Plain BufWinEnter, not ColorScheme: this needs to run for every buffer,
+    " including ones that never trigger `colorscheme notes` (.vimrc only
+    " does that for *.n/*.md), so a ColorScheme hook alone wouldn't cover it.
     autocmd BufWinEnter * call s:ApplyVimParity()
 
     " Neovim's bundled markdown/lua/help/query ftplugins auto-start
@@ -68,6 +68,20 @@ if has('nvim')
     autocmd VimEnter * ++nested call s:ApplyVimParityForInitialBuffer()
   augroup END
 endif
+
+" add padding to split panes
+" Updates every window in the tab, not just the current one -- a window
+" can shift from leftmost to non-leftmost (e.g. neo-tree opening to its
+" left) without itself receiving WinEnter/BufWinEnter, since focus moves
+" to the new window instead, so a current-window-only check would leave
+" its padding stale until it's clicked into.
+function! SetSignColumnByPosition()
+  for l:winnr in range(1, winnr('$'))
+    let l:signcolumn = win_screenpos(l:winnr)[1] > 1 ? 'yes:1' : 'auto'
+    call setwinvar(l:winnr, '&signcolumn', l:signcolumn)
+  endfor
+endfunction
+autocmd WinEnter,WinNew,WinClosed,VimResized,BufWinEnter * call SetSignColumnByPosition()
 
 " In-buffer markdown rendering, installed via Neovim's built-in vim.pack.
 " Uses bundled markdown/markdown_inline treesitter parsers, not the
@@ -100,3 +114,4 @@ EOF
 
 " Override .vimrc's <C-t> NERDTreeToggle with Neotree, for Neovim only.
 nnoremap <C-t> :Neotree toggle<CR>
+

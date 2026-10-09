@@ -574,8 +574,8 @@ call s:HL('Error', s:red, s:vim_bg, s:bold . s:inverse)
 
 hi Normal guifg=#a89984
 hi FoldColumn guibg=NONE ctermbg=NONE
-hi Visual guibg=#000000 guifg=#b8bb26
-hi CursorLine guibg=#111111 guifg=NONE
+hi Visual guibg=#000000 guifg=#8ec07c
+hi CursorLine guibg=#060606 guifg=NONE
 hi Folded ctermbg=black
 
 " Legacy ".n" note markup (dash/x task markers, "# "/"## " header dimming,
@@ -646,7 +646,7 @@ if &filetype ==# 'markdown'
 " glow doesn't render the literal "#" prefix at all
 hi markdownH1 guifg=#b8bb26 gui=bold cterm=bold
 hi markdownH2 guifg=#8ec07c gui=bold cterm=bold
-hi markdownH3 guifg=#fabd2f gui=bold cterm=bold
+hi markdownH3 guifg=#83a598 gui=bold cterm=bold
 hi markdownH4 guifg=#fe8019 gui=bold cterm=bold
 hi markdownH5 guifg=#d3869b gui=bold cterm=bold
 hi markdownH6 guifg=#83a598 gui=NONE cterm=NONE
@@ -658,7 +658,7 @@ hi! link markdownH5Delimiter markdownH5
 hi! link markdownH6Delimiter markdownH6
 
 " emphasis
-hi markdownBold guifg=#fabd2f gui=bold cterm=bold
+hi markdownBold gui=bold cterm=bold
 hi markdownBoldItalic guifg=#fabd2f gui=bold,italic cterm=bold,italic
 hi markdownItalic guifg=#a89984 gui=italic cterm=italic
 hi markdownStrike guifg=#665c54 gui=strikethrough cterm=strikethrough
@@ -687,11 +687,37 @@ hi markdownCode guifg=#af8787 guibg=#3c3836
 hi markdownCodeDelimiter guifg=#665c54 gui=italic cterm=italic
 hi markdownCodeBlock guifg=#af8787
 
+" YAML front matter (the leading ---...--- block, e.g. the google_doc:
+" tracking metadata markdown-gdoc-generate writes) -- vim's markdown.vim
+" includes syntax/yaml.vim for this region, and those yaml* groups link
+" to generic groups (Identifier/String/PreProc/...) that notes.vim never
+" overrides, so they render in vim's hardcoded defaults instead of this
+" palette. Recolor them to match.
+hi yamlDocumentStart guifg=#665c54 gui=NONE cterm=NONE
+hi yamlDocumentEnd guifg=#665c54 gui=NONE cterm=NONE
+hi yamlComment guifg=#665c54 gui=italic cterm=italic
+hi yamlBlockMappingKey guifg=#8ec07c gui=NONE cterm=NONE
+hi yamlBlockMappingDelimiter guifg=#a89984 gui=NONE cterm=NONE
+hi yamlKeyValueDelimiter guifg=#a89984 gui=NONE cterm=NONE
+hi yamlBlockCollectionItemStart guifg=#a89984 gui=NONE cterm=NONE
+hi yamlString guifg=#af8787 gui=NONE cterm=NONE
+hi yamlFlowString guifg=#af8787 gui=NONE cterm=NONE
+hi yamlFlowStringDelimiter guifg=#af8787 gui=NONE cterm=NONE
+hi yamlFlowIndicator guifg=#665c54 gui=NONE cterm=NONE
+hi yamlNull guifg=#fe8019 gui=NONE cterm=NONE
+hi yamlBool guifg=#fe8019 gui=NONE cterm=NONE
+hi yamlInteger guifg=#fe8019 gui=NONE cterm=NONE
+hi yamlFloat guifg=#fe8019 gui=NONE cterm=NONE
+hi yamlTimestamp guifg=#fe8019 gui=NONE cterm=NONE
+hi yamlAnchor guifg=#d3869b gui=NONE cterm=NONE
+hi yamlAlias guifg=#d3869b gui=NONE cterm=NONE
+hi yamlNodeTag guifg=#d3869b gui=NONE cterm=NONE
+
 endif
 
 " hi StatusLineNC ctermfg=black ctermbg=black
 " hi StatusLine ctermfg=black ctermbg=black
-let &statusline='%#CursorLine# '
+let &statusline='%#StatusLine# '
 
 "---------------------------------------------------------
 
@@ -711,9 +737,11 @@ hi Folded guibg=#070707
 set foldtext=getline(v:foldstart)
 set fcs=fold:\ ,vert:\|
 
-" changes look of vertical splitbar
-set fillchars+=vert:\ 
-highlight VertSplit guibg=#111111 cterm=NONE
+" changes look of split dividers -- thin line instead of a filled block
+set fillchars+=vert:│,stl:─,stlnc:─
+highlight VertSplit guifg=#111111 guibg=NONE gui=NONE cterm=NONE
+highlight StatusLine guifg=#111111 guibg=NONE gui=NONE cterm=NONE
+highlight StatusLineNC guifg=#111111 guibg=NONE gui=NONE cterm=NONE
 
 " hide empty line chars
 hi NonText guifg=bg

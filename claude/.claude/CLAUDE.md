@@ -24,6 +24,7 @@ When posting a comment to a Jira issue (`jira_post_jira_issue_comment`), follow 
 - Attach screenshots/visualizations inline with `!filename.jpg|thumbnail!` when available.
 - **Max sentence length: 150 characters.** This is not a hard line-wrap rule — don't break a single sentence across lines with `\\`. Instead, keep each sentence itself under 150 chars; if a sentence runs long, rewrite it shorter/more concise rather than wrapping it. This also keeps bullet descriptions from getting too wordy. Multiple short sentences in the same bullet are fine — just don't let any individual sentence exceed 150 chars.
   - Exception: a bare link/URL (`[text|url]`) can't be shortened — if the link itself pushes a line past 150, leave that line as-is and put any surrounding prose in its own sentence.
+- **No `\\` needed for line breaks within a bullet.** A plain newline inside a bullet's text already renders as a line break in Jira wiki markup, without starting a new bullet or list item. Only reach for `\\` when there's some other specific markup reason — not just to put two lines under one bullet.
 
 ## Wording
 
