@@ -59,6 +59,56 @@ if has('nvim')
   nmap <C-_> gcc
   vmap <C-_> gc
 
+  " On an empty line, build the comment skeleton from 'commentstring' and
+  " drop the cursor in the middle (e.g. markdown: '<!-- ' + cursor + ' -->')
+  " instead of toggling a comment around nothing.
+  function! s:CommentSkeleton() abort
+    let l:cs = &commentstring =~# '%s' ? &commentstring : '%s'
+    let l:parts = split(l:cs, '%s', 1)
+    let l:left = get(l:parts, 0, '')
+    let l:right = get(l:parts, 1, '')
+    let l:indent = matchstr(getline('.'), '^\s*')
+    if l:right ==# ''
+      call setline('.', l:indent . l:left)
+      startinsert!
+    else
+      " left/right already carry commentstring's own padding (e.g.
+      " '<!-- '/' -->'), so just join them - no extra spaces needed.
+      call setline('.', l:indent . l:left . l:right)
+      call cursor(line('.'), len(l:indent . l:left) + 1)
+      startinsert
+    endif
+  endfunction
+
+  " gcc is Normal/Visual-only, so run it via <Cmd> (no mode-change event)
+  " then relocate the cursor. Can't just shift by length change: surround
+  " comments grow on both ends, so find the untouched "core" text instead.
+  function! s:ToggleCommentInsert() abort
+    if getline('.') =~# '^\s*$'
+      call s:CommentSkeleton()
+      return
+    endif
+    let l:col = col('.')
+    let l:old = getline('.')
+    normal gcc
+    let l:new = getline('.')
+    let l:indent = matchstr(l:old, '^\s*')
+    let l:old_core = l:old[len(l:indent):]
+    let l:new_core = l:new[len(l:indent):]
+    if strlen(l:new_core) >= strlen(l:old_core)
+      let l:idx = stridx(l:new_core, l:old_core)
+      let l:left_len = l:idx >= 0 ? l:idx : 0
+    else
+      let l:idx = stridx(l:old_core, l:new_core)
+      let l:left_len = l:idx >= 0 ? -l:idx : 0
+    endif
+    let l:old_rel = max([l:col - 1 - len(l:indent), 0])
+    let l:new_rel = min([max([l:old_rel + l:left_len, 0]), strlen(l:new_core)])
+    call cursor(line('.'), len(l:indent) + l:new_rel + 1)
+    startinsert
+  endfunction
+  inoremap <silent> <C-_> <Cmd>call <SID>ToggleCommentInsert()<CR>
+
   augroup nvim_vim_parity
     autocmd!
     " Plain BufWinEnter, not ColorScheme: this needs to run for every buffer,
