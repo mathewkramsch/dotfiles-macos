@@ -54,6 +54,11 @@ if has('nvim')
     lua pcall(function() require('render-markdown').buf_enable() end)
   endfunction
 
+  " Toggle comment with ctrl+/ (terminals send this as <C-_>), using
+  " Neovim's built-in gc/gcc comment operator - not available in plain Vim.
+  nmap <C-_> gcc
+  vmap <C-_> gc
+
   augroup nvim_vim_parity
     autocmd!
     " Plain BufWinEnter, not ColorScheme: this needs to run for every buffer,

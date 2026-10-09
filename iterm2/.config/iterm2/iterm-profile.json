@@ -152,6 +152,13 @@
   "Use Italic Font" : true,
   "Unlimited Scrollback" : false,
   "Keyboard Map" : {
+    "0x2f-0x100000-0x2c" : {
+      "Version" : 2,
+      "Apply Mode" : 0,
+      "Action" : 11,
+      "Text" : "0x1F",
+      "Escaping" : 2
+    },
     "0xf700-0x260000" : {
       "Text" : "[1;6A",
       "Action" : 10
